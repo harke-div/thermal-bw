@@ -1,5 +1,5 @@
 """Here we define some small literature expressions used by the validation scripts. 
-Currently, we only look at Celli et al (2017); this may be subject to change."""
+Currently, we only look at Celli et al (2017); this may be subject to change in upcoming versions."""
 from __future__ import annotations
 
 import math
