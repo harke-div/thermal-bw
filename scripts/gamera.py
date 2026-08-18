@@ -1,4 +1,4 @@
-"""Here we conduct a comparison of source-level GAMERA opacity used by ``scripts/compare.py``."""
+"""Here we conduct a comparison of GAMERA opacity used by ``scripts/compare.py``."""
 from __future__ import annotations
 
 import numpy as np
