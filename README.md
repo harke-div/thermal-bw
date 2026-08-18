@@ -2,7 +2,7 @@
 
 ## Brief
 
-Here I host the code for `thermal-bw`, which is a lightweight microphysics library computing local (1) Breit-Wheeler photon absorption and (2) the energy spectrum of the produced electron-positron pairs. Currently, THIS IS ONLY FOR ISOTROPIC RADIATION FIELDS. There are numerical reference methods (adaptive, Gauss-Legendre quadrature, etc.) for general isotropic specta, and for blackbody fields, I have supplied a lightweight, sub-percent accuracy analytic surrogate. The aim of this code is to provide local and lightweight calculations that may reduce computational cost for repeated evaluations and that may be integrated into larger radiative transfer, kinetic, or Monte Carlo modelling. For more information on this code, you may visit its corresponding paper in SoftwareX as an Original Software Publication: XXX.
+Here I host the code for `thermal-bw`, which is a lightweight microphysics library computing local (1) Breit-Wheeler photon absorption and (2) the energy spectrum of the produced electron-positron pairs. Currently, THIS IS ONLY FOR ISOTROPIC RADIATION FIELDS. There are numerical reference methods (adaptive, Gauss-Legendre quadrature, etc.) for general isotropic specta, and for blackbody fields, I have supplied a lightweight, sub-percent accuracy analytic surrogate. The aim of this code is to provide local and lightweight calculations that may reduce computational cost for repeated evaluations and that may be integrated into larger radiative transfer, kinetic, or Monte Carlo modelling. For more information on this code, you may visit its corresponding paper in SoftwareX as an Original Software Publication: (to be added upon online publication).
 
 ## Installation
 
