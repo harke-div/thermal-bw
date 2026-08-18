@@ -80,7 +80,6 @@ def main() -> None:
         "sampling": "4096 logarithmic cell centres, separate from fit nodes",
         "eta_domain": [lower, upper],
         "points": len(eta),
-        "opacity_floor": None,
         "median_rel": float(np.median(relative)),
         "p95_rel": float(np.quantile(relative, 0.95)),
         "p99_rel": float(np.quantile(relative, 0.99)),
@@ -105,7 +104,6 @@ def main() -> None:
         "sampling": "2048-point scrambled Sobol sequence in log eta",
         "eta_domain": [lower, upper],
         "points": len(sobol_eta),
-        "opacity_floor": None,
         **relative_stats(sobol_fit, sobol_exact),
         "worst_eta": float(
             sobol_eta[np.argmax(np.abs(sobol_fit / sobol_exact - 1.0))]
@@ -252,7 +250,7 @@ def main() -> None:
     lines = [
         "thermal-bw 1.0.0",
         f"validated eta range: {lower:g} -- {upper:g}",
-        f"interleaved validation max rel, no opacity floor: {validation['max_rel']:.8e}",
+        f"interleaved validation max rel: {validation['max_rel']:.8e}",
         f"interleaved validation p99 rel: {validation['p99_rel']:.8e}",
         f"Sobol validation max rel: {sobol_validation['max_rel']:.8e}",
         f"reference convergence max rel: {reference_convergence['max_rel']:.8e}",
