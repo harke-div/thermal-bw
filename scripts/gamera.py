@@ -163,7 +163,7 @@ def gamera_comparison():
                     "E_MeV": float(values[0]),
                     "thermal_bw_cm_inv": float(values[1]),
                     "gamera_cm_inv": float(values[2]),
-                    "gamera_exact_angle_control_cm_inv": float(values[3]),
+                    "gamera_numerical_angle_control_cm_inv": float(values[3]),
                     "gamera_over_thermal_bw_minus_1": float(values[4]),
                     "control_over_thermal_bw_minus_1": float(values[5]),
                 }
@@ -173,7 +173,7 @@ def gamera_comparison():
             {
                 "case": name,
                 "full": relative_summary(full_rel),
-                "exact_angle_control": relative_summary(control_rel),
+                "numerical_angle_control": relative_summary(control_rel),
                 "full_max_E_MeV": float(gamma_energy[np.argmax(np.abs(full_rel))]),
                 "control_max_E_MeV": float(
                     gamma_energy[np.argmax(np.abs(control_rel))]
