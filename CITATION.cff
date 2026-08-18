@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use thermal-bw, please cite the archived release and associated article."
+type: software
+title: "thermal-bw"
+version: "1.0.0"
+license: MIT
+authors:
+  - family-names: Harke
+    given-names: Divyen
+    orcid: "https://orcid.org/0009-0007-4755-1183"
+repository-code: "https://github.com/harke-div/SoftwareX-Submission"
+keywords:
+  - Breit-Wheeler
+  - gamma-ray opacity
+  - pair production
+  - radiative transfer
+  - astrophysics
