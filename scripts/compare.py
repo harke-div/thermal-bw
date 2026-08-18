@@ -63,7 +63,7 @@ def stats(prediction, reference):
 
 
 def load_universal_validation():
-    """Load the independent no-floor eta validation set."""
+    """Load a separate validation set."""
     rows = list(csv.DictReader((OUT / "universal.csv").open()))
     eta = np.asarray([float(row["eta"]) for row in rows])
     exact = np.asarray([float(row["exact_reduced_cm_inv_keV-3"]) for row in rows])
@@ -234,7 +234,6 @@ def main() -> None:
             "variable": "eta",
             "eta_domain": [lower, upper],
             "validation_points": len(eta),
-            "opacity_floor": None,
             "timing_points": method_count,
             "timing_scope": (
                 "stored representation of the universal reduced function F(eta); "
