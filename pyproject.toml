@@ -32,8 +32,7 @@ test = [
 ]
 
 [project.urls]
-Repository = "XXX"
-Documentation = "XXX"
+Repository = "https://github.com/harke-div/thermal-bw"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
