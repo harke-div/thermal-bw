@@ -2,7 +2,7 @@
 
 ## Brief
 
-Here I host the code for `thermal-bw`, which is a lightweight microphysics library computing local (1) Breit-Wheeler photon absorption and (2) the energy spectrum of the produced electron-positron pairs. Currently, THIS IS ONLY FOR ISOTROPIC RADIATION FIELDS. There are numerical reference methods (adaptive, Gauss-Legendre quadrature, etc.) for general isotropic specta, and for blackbody fields, I have supplied a lightweight, sub-percent accuracy analytic surrogate. The aim of this code is to provide local and lightweight calculations that may reduce computational cost for repeated evaluations and that may be integrated into larger radiative transfer, kinetic, or Monte Carlo modelling. For more information on this code, you may visit its corresponding paper in SoftwareX as an Original Software Publication: (to be added upon online publication).
+Here I host the code for `thermal-bw`, which is a lightweight microphysics library computing local (1) Breit-Wheeler photon absorption and (2) the energy spectrum of the produced electron-positron pairs. Currently, THIS IS ONLY FOR ISOTROPIC RADIATION FIELDS. There are numerical reference methods (adaptive, Gauss-Legendre quadrature, etc.) for general isotropic spectra, and for blackbody fields, I have supplied a lightweight, sub-percent accuracy analytic surrogate. The aim of this code is to provide local and lightweight calculations that may reduce computational cost for repeated evaluations and that may be integrated into larger radiative transfer, kinetic, or Monte Carlo modelling. For more information on this code, you may visit its corresponding paper in SoftwareX as an Original Software Publication: (to be added upon online publication).
 
 ## Installation
 
@@ -14,7 +14,7 @@ Optional dependencies:
 
 ```bash
 python -m pip install ".[units]"              # Astropy quantities
-python -m pip install -e ".[dev]"           # development and validation
+python -m pip install -e ".[test]"            # development, tests, and validation
 ```
 
 Note that the core package only requires NumPy and SciPy.
@@ -44,7 +44,7 @@ I have validated the surrogate with subpercent accuracy over the domain `0.01 <=
 
 ### METRICS & RESULTS: 
 
-Independent validation on 4096 interleaved logarithmic points gives median, 99th-percentile, and maximum relative errors of 0.225%, 0.316%, and 0.316%, respectively. A separate 2048-point scrambled Sobol validation gives the same 0.316% maximum error.
+Validation on 4096 interleaved logarithmic points gives median, 99th-percentile, and maximum relative errors of 0.225%, 0.316%, and 0.316%, respectively. A separate 2048-point scrambled Sobol validation gives the same 0.316% maximum error.
 
 ### Evaluation outside validated domain
 
@@ -88,3 +88,81 @@ When using `alpha_isotropic_cached`, you will be provided with 3 presets (`fast`
 
 
 ## Secondary pair spectra
+
+In this software there is also code that returns the differential energy distribution of the produced electron or positron. `electron_energy_MeV` is the **total** lepton energy, so its minimum physical value is 0.511 MeV.
+
+```python
+import numpy as np
+from thermal_bw import BlackbodySpectrum, pair_distribution, pair_spectrum
+
+target = BlackbodySpectrum(50.0)
+E_e = np.linspace(0.511, 10.0, 300)
+
+dalpha_dE = pair_spectrum(10.0, E_e, target)     # cm^-1 MeV^-1
+probability = pair_distribution(10.0, E_e, target)  # MeV^-1
+```
+
+In pair spectrum one can obtain the marginal spectrum for one charge species.  The electron and positron marginals are identical in the unpolarized isotropic calculation, and each integrates to the ordinary gamma-gamma absorption coefficient. The differential kernel uses the exact Böttcher--Schlickeiser result where it is well conditioned and a direct centre-of-momentum phase-space evaluation when the closed form loses numerical precision at highly differing photon energies. Those wishing to check with a separate adaptive target-energy integration may refer to `pair_spectrum_adaptive`.
+
+A local incident gamma-ray number density can be convolved into a pair source term
+
+```python
+from thermal_bw import pair_injection
+
+Q_e = pair_injection(E_gamma, n_gamma, E_e, target)
+```
+
+Here `n_gamma` is in `cm^-3 MeV^-1` and the returned source is in `cm^-3 s^-1 MeV^-1` for one charge species. Do use `combined=True` for the summed electron and positron source. Do use `same_photon_population=True` when the incident gamma-ray array and `target` describe the same physical photon population over the same collision integral. This will apply the required factor `1/2` so that each unordered pair will be counted once. I recomend to leave it false when dealing with distinct incident and target populations.
+
+
+
+## Repeated calculations
+
+```python
+from thermal_bw import BlackbodySpectrum, TargetOpacityTable, prepare_target
+
+target = BlackbodySpectrum(50.0)
+prepared = prepare_target(target, 1.0, preset="balanced")
+alpha_prepared = prepared.opacity(energy)
+
+table = TargetOpacityTable.build(target, (1.0, 100.0), rtol=1e-3)
+alpha_table = table(energy)
+```
+
+Note that any prepared targets will reuse quadrature data. The intention of the target-specific tables is to be used in many evaluations of an unchanged radiation field.
+
+
+
+## Validation and reproduction
+
+```bash
+python scripts/reproduce.py
+```
+
+Run this to obtain all the results which are stated in the manuscript. If you would like specific calculations, scripts for each component have been provided. For more information on the methods of validation, refer to the SoftwareX paper. I will now describe the functionality of a few scripts in this context.
+
+`scripts/universal.py` checks the exact `T^3` collapse across temperatures from `2.35e-7` to `1000 keV`, repeats the reference calculation at higher Gauss--Legendre orders, and independently evaluates the exact universal function in Appendix A of Celli, Palladino & Vissani (2017). I find that the latter agrees with the package reference to better than `5e-9` fractionally.
+
+`scripts/mpcheck.py` also checks finite cutoff and broken power-law photon fields by direct 30-digit nested integration over target-photon energy and collision angle.
+
+`scripts/compare.py` compares one-dimensional regular-grid and Chebyshev representations of the same universal blackbody function, checks the invariant convention used by agnpy, and reproduces GAMERA's isotropic opacity calculation. Then there is a comparison with the calculation of GAMERA using identical tabulated targets.
+
+
+
+## Repository layout
+
+```text
+src/thermal_bw/   package source
+examples/         short usage examples
+scripts/          fitting, validation, comparison, timing
+tests/            unit and regression tests
+docs/             numerical-method notes
+```
+
+
+
+## Scope
+
+This package DOES treat the following: Local Breit--Wheeler interactions in isotropic, unmagnetized, unpolarized radiation fields.
+
+This package DOES NOT treat the following: Source geometry, outgoing lepton angles, magnetic pair creation, relativistic frame transformations, particle cooling, or pair cascades.
