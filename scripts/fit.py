@@ -88,7 +88,6 @@ def main() -> None:
         "fit_variable": "eta = E_gamma kT / (m_e c^2)^2",
         "eta_domain": [lower, upper],
         "fit_points": TRAIN_POINTS,
-        "opacity_floor": None,
         "reference": {"n_angle": 320, "n_planck": 480, "kT_keV": 1.0},
         "objective": "minimize maximum absolute logarithmic residual",
         "global_optimizer": {
