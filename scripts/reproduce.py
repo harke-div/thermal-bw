@@ -1,4 +1,4 @@
-#!/usr/bin/env python3   UNFINALIZED
+#!/usr/bin/env python3
 """Here we regenerate every result file that is distributed with the release."""
 from __future__ import annotations
 
