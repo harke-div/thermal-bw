@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Here we regenerate every result file that is distributed with the release."""
+"""Here I provide the script to generate the numerical results that are disscussed in the SoftwareX paper"""
 from __future__ import annotations
 
 import subprocess
