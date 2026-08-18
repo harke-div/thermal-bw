@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use thermal-bw, please cite the archived release and associated article."
+message: "If you use thermal-bw, please cite the archived release and associated article (article DOI will be provided upon acceptance)."
 type: software
 title: "thermal-bw"
 version: "1.0.0"
