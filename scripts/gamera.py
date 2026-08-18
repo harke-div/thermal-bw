@@ -223,7 +223,7 @@ def gamera_comparison():
             "software": "GAMERA",
             "commit": GAMERA_COMMIT,
             "routine": "Radiation::ComputeAbsCoeff for an isotropic arbitrary target",
-            "comparison": "source-level reproduction",
+            "comparison": "reproduction",
         },
         "gamma_energy_MeV": list(GAMMA_TEST_RANGE_MEV),
         "gamma_points": len(gamma_energy),
