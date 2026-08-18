@@ -156,7 +156,6 @@ src/thermal_bw/   package source
 examples/         short usage examples
 scripts/          fitting, validation, comparison, timing
 tests/            unit and regression tests
-docs/             numerical-method notes
 ```
 
 
