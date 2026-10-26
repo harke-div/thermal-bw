@@ -90,7 +90,7 @@ def test_tabulated_spectrum_reproduces_powerlaw():
         energy_bounds_keV=(0.1, 1000.0),
         cutoff_keV=500.0,
     )
-    grid = np.logspace(-1, 3, 200)
+    grid = np.geomspace(0.1, 1000.0, 200)
     tabulated = TabulatedSpectrum(grid, spectrum.number_density(grid))
     exact = alpha_isotropic_gauss(5.0, spectrum, n_energy=160, n_angle=96)
     interpolated = alpha_isotropic_gauss(5.0, tabulated, n_energy=160, n_angle=96)
