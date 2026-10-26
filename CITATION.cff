@@ -9,6 +9,8 @@ authors:
     given-names: Divyen
     orcid: "https://orcid.org/0009-0007-4755-1183"
 repository-code: "https://github.com/harke-div/thermal-bw"
+article-link: "https://www.sciencedirect.com/science/article/pii/S2352711026006382?via%3Dihub"
+article-DOI: "https://doi.org/10.1016/j.softx.2026.103148"
 keywords:
   - Breit-Wheeler
   - gamma-ray opacity
